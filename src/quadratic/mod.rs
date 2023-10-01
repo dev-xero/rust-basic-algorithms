@@ -30,8 +30,8 @@ impl Quadratic {
         }
 
         let a_term: &str = components.get(0).ok_or_else(|| "Constant term 'a' is missing.")?;
-        let b_term = components.get(1).ok_or_else(|| "Constant term 'b' is missing.")?;
-        let c_term = components.get(2).ok_or_else(|| "Constant term 'c' is missing.")?;
+        let b_term: &str = components.get(1).ok_or_else(|| "Constant term 'b' is missing.")?;
+        let c_term: &str = components.get(2).ok_or_else(|| "Constant term 'c' is missing.")?;
 
         let a: i32 = Self::parse_term(&a_term)?;
         let b: i32 = Self::parse_term(&b_term)?;
