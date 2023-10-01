@@ -20,7 +20,6 @@ Basic algorithms implemented in Rust.
         let r1 = (-b + d.sqrt()) / (2.0 * a);
         let r2 = (-b - d.sqrt()) / (2.0 * a);
 
-
         (r1, r2)
     } else {
         let rp = -b / (2.0 * a);           // real part
