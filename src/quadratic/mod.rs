@@ -1,6 +1,6 @@
 #[derive(Debug, PartialEq)]
 pub struct Quadratic {
-    pub equation: String,  // ax^2 + bx + c
+    pub equation: String, // ax^2 + bx + c
     pub variables: (i32, i32, i32)
 }
 
@@ -47,4 +47,28 @@ impl Quadratic {
             }
         )
     } 
+
+    fn discriminant(&self) -> i32 {
+        let (a, b, c) = self.variables;
+        b.pow(2) - 4 * (a * c)
+    }
+    
+    pub fn root(&self) -> (f64, f64) {
+        let a = self.variables.0 as f64;
+        let b = self.variables.1 as f64;
+        let d = Self::discriminant(&self) as f64;
+
+        if d >= 0.0 {
+            let r1 = (-b + d.sqrt()) / (2.0 * a);
+            let r2 = (-b - d.sqrt()) / (2.0 * a);
+
+    
+            (r1, r2)
+        } else {
+            let rp = -b / (2.0 * a);           // real part
+            let ip = (-d).sqrt() / (2.0 * a);  // imaginary part
+
+            (rp, ip)
+        }
+    }
 }
