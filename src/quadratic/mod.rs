@@ -1,12 +1,13 @@
 use std::process::exit;
 
+#[derive(Debug, PartialEq)]
 pub struct Quadratic {
-    equation: String,  // ax^2 + bx + c
-    variables: (i32, i32, i32)
+    pub equation: String,  // ax^2 + bx + c
+    pub variables: (i32, i32, i32)
 }
 
 impl Quadratic {
-    fn from_equation(equation: String) -> Quadratic {
+    pub fn from_equation(equation: &str) -> Quadratic {
         let components: Vec<&str> = equation.split(" ").collect();
         if components.len() != 5 {
             eprintln!("Not enough terms for quadratic equation");
@@ -47,7 +48,7 @@ impl Quadratic {
             });
 
         Quadratic { 
-            equation, 
+            equation: equation.clone().to_string(), 
             variables: (a, b, c)
         }
     } 
