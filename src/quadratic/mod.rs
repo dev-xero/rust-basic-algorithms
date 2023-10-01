@@ -6,12 +6,22 @@ pub struct Quadratic {
 
 impl Quadratic {
     fn parse_term(term: &str) -> Result<i32, &'static str> {
-        if term.contains("-") {
-            Ok(term[..2].parse::<i32>().map_err(|_| "Failed to parse term")?)
-        } else if term.contains("+") {
-            Ok(term[1..2].parse::<i32>().map_err(|_| "Failed to parse term")?)
+        let term = term.trim();
+
+        if term.is_empty() {
+            Ok(0)
+        } else if term.contains("x^2") {
+            if term == "x^2" {
+                return Ok(1)
+            }
+
+            let coeff = &term[..term.len() - 3].trim();
+            Ok(coeff.parse::<i32>().map_err(|_| "Failed to parse 'a' term")?)
+        } else if term.contains("x") { //+4x
+            let coeff = &term[..term.len() - 1].trim();
+            Ok(coeff.parse::<i32>().map_err(|_| "Failed to parse 'b' term")?)
         } else {
-            Ok(term[..1].parse::<i32>().map_err(|_| "Failed to parse term")?)
+            term.parse::<i32>().map_err(|_| "Failed to parse 'c' term")
         }
     }
 
@@ -26,18 +36,13 @@ impl Quadratic {
         let b_term = components.get(1).ok_or_else(|| "Constant term 'b' is missing.")?;
         let c_term = components.get(2).ok_or_else(|| "Constant term 'c' is missing.")?;
 
-        let a: i32 =  if a_term
-            .chars().nth(0).is_some_and(|t| t.is_alphabetic()) {
-            1
-        } else {
-            Self::parse_term(&a_term)?
-        };
+        let a: i32 = Self::parse_term(&a_term)?;
         let b: i32 = Self::parse_term(&b_term)?;
         let c: i32 = Self::parse_term(&c_term)?;
 
         Ok(
             Quadratic { 
-                equation: equation.clone().to_string(), 
+                equation: equation.to_string(), 
                 variables: (a, b, c)
             }
         )
