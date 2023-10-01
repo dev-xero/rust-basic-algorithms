@@ -1,6 +1,6 @@
 #[derive(Debug, PartialEq)]
 pub struct Quadratic {
-    pub equation: String, // ax^2 + bx + c
+    pub equation: String,           // ax^2 + bx + c
     pub variables: (i32, i32, i32)
 }
 
@@ -11,13 +11,10 @@ impl Quadratic {
         if term.is_empty() {
             Ok(0)
         } else if term.contains("x^2") {
-            if term == "x^2" {
-                return Ok(1)
-            }
-
+            if term == "x^2" { return Ok(1) }
             let coeff = &term[..term.len() - 3].trim();
             Ok(coeff.parse::<i32>().map_err(|_| "Failed to parse 'a' term")?)
-        } else if term.contains("x") { //+4x
+        } else if term.contains("x") {
             let coeff = &term[..term.len() - 1].trim();
             Ok(coeff.parse::<i32>().map_err(|_| "Failed to parse 'b' term")?)
         } else {
@@ -62,7 +59,6 @@ impl Quadratic {
             let r1 = (-b + d.sqrt()) / (2.0 * a);
             let r2 = (-b - d.sqrt()) / (2.0 * a);
 
-    
             (r1, r2)
         } else {
             let rp = -b / (2.0 * a);           // real part
