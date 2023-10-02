@@ -53,3 +53,22 @@ Basic algorithms implemented in Rust.
         *cache.entry(n).or_insert_with(|| fib(n - 1) + fib(n - 2))
     }
   ```
+
+### 4. Is Prime
+  Checks whether a number `n` is prime. We can take advantage of the fact that prime numbers greater than 3 can be expressed in the form 6k ± 1, where k is a positive integer, avoiding unnecessary checks and improving speed.
+  ```rust
+    pub fn is_prime(n: u32) -> bool {
+      if n <= 1 { return false }
+      if n <= 3 { return true }
+      if n % 2 == 0 || n % 3 == 0 { return false }
+  
+      let mut i = 5;
+  
+      while i*i <= n {
+          if n % i == 0 || n % (i + 2) == 0 { return false }
+          i += 6
+      }
+  
+      true
+  }
+  ```
