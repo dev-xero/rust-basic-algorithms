@@ -28,3 +28,28 @@ Basic algorithms implemented in Rust.
         (rp, ip)
     }
 ```
+
+### 2. Factorial Function
+  The factorial function `n!` is defined such that for any n > 0, `n!` equals `n * (n-1) * (n-2) *..1`
+  ```rust
+    pub fn fact(n: u32) -> u32 {
+      if n == 1 {
+          return n;
+      }
+  
+      n * fact(n - 1)
+  }
+  ```
+
+### 3. Fib Function
+  Returns the nth term of `fib(n)` in the Fibonacci sequence.
+  ```rust
+    pub fn fib(n: u32) -> u32 {
+        let mut cache: HashMap<u32, u32> = HashMap::new();
+    
+        if n == 0 { return 0 }
+        if n == 1 { return 1 }
+        
+        *cache.entry(n).or_insert_with(|| fib(n - 1) + fib(n - 2))
+    }
+  ```
